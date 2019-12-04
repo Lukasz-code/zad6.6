@@ -6,6 +6,7 @@ import java.util.List;
 public class BookLibrary {
     LibraryDataBase libraryDatabase;
 
+
     public BookLibrary(LibraryDataBase libraryDatabase) {
         this.libraryDatabase = libraryDatabase;
     }
@@ -19,12 +20,10 @@ public class BookLibrary {
         return bookList;
     }
     public List <Book> listBooksInHandsOf (LibraryUser libraryUser) {
-        List<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("The book title", "The book author", 2000);
-        bookList.add(book);
+        List<Book> bookList = new ArrayList<>();
+        List<Book> resultList = libraryDatabase.listBooksInHandsOf(libraryUser);
+        return resultList;
 
-        // temporary returning list of one book
-        return bookList;
     }
 }
 

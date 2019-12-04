@@ -1,14 +1,16 @@
 package com.kodilla.testing.library;
 
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+
 
 public class BookDirectoryTestSuite {
 
@@ -89,12 +91,50 @@ public class BookDirectoryTestSuite {
     }
 
     @Test
-    public void testZeroBooksInHandsOf() {
+    public void testBooksInHandsOfZero() {
         //Given
         LibraryUser libraryUserMock = mock(LibraryUser.class);
-         = new BookLibrary(libraryUserMock);
+        LibraryDataBase libraryDatabaseMock = mock(LibraryDataBase.class);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> rentedBooks = generateListOfNBooks(0);
 
+        when(libraryDatabaseMock.listBooksInHandsOf(any())).thenReturn(rentedBooks);
 
+        //When
+        int quantityOfBooks = libraryDatabaseMock.listBooksInHandsOf(libraryUserMock).size();
+        //Than
+        assertEquals(0,quantityOfBooks );
     }
+    @Test
+    public void testBooksInHandsOfOne() {
+        //Given
+        LibraryUser libraryUserMock = mock(LibraryUser.class);
+        LibraryDataBase libraryDatabaseMock = mock(LibraryDataBase.class);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+
+        List<Book> rentedBooks1 = generateListOfNBooks(1);
+
+        when(libraryDatabaseMock.listBooksInHandsOf(any())).thenReturn(rentedBooks1);
+
+        //When
+        int quantityOfBooks = libraryDatabaseMock.listBooksInHandsOf(libraryUserMock).size();
+        //Than
+        assertEquals(1,quantityOfBooks );
     }
+    @Test
+    public void testBooksInHandsOfFive() {
+        //Given
+        LibraryUser libraryUserMock = mock(LibraryUser.class);
+        LibraryDataBase libraryDatabaseMock = mock(LibraryDataBase.class);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+
+        List<Book> rentedBooks5 = generateListOfNBooks(5);
+        when(libraryDatabaseMock.listBooksInHandsOf(any())).thenReturn(rentedBooks5);
+
+        //When
+        int quantityOfBooks = libraryDatabaseMock.listBooksInHandsOf(libraryUserMock).size();
+        //Than
+        assertEquals(5,quantityOfBooks );
+    }
+}
 
